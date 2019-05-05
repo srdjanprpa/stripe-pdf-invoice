@@ -4,6 +4,7 @@
 
   total = (total/100).toFixed(2);
   subtotal = (subtotal/100).toFixed(2);
+  discount = subtotal - subtotal;
   tax_percent = tax_percent || 0;
 
   lines.data.forEach(line => {
@@ -72,6 +73,10 @@ html.no-js
             .row
               .columns
                 | #{client_company_country}
+            .row
+              .columns
+                if currency_position_before
+                  | #{label_vat} #{client_company_vat}
           .columns.date-label
             .row
               .columns.text-right
@@ -138,6 +143,15 @@ html.no-js
                     | #{subtotal}
                     if !currency_position_before
                       | #{currency_symbol}
+                if (discount !== 0)
+                  .row.item-vat
+                    .small-6.columns.text-right.item-text #{label_discount}
+                    .small-6.columns.text-right.item-text 
+                      if currency_position_before
+                        | #{currency_symbol}
+                      | #{discount}
+                      if !currency_position_before
+                        | #{currency_symbol}
                 if (client_company_country !== 'CA')
                   .row.item-vat
                     .small-6.columns.text-right.item-text #{label_vat}
