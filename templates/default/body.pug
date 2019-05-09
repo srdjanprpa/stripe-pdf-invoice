@@ -4,7 +4,7 @@
 
   total = (total/100).toFixed(2);
   subtotal = (subtotal/100).toFixed(2);
-  discount = subtotal - subtotal;
+  discount = total - subtotal;
   tax_percent = tax_percent || 0;
 
   lines.data.forEach(line => {
