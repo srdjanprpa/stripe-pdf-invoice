@@ -4,7 +4,11 @@
 
   total = (total/100).toFixed(2);
   subtotal = (subtotal/100).toFixed(2);
-  discount = total - subtotal;
+  discountStatus = false
+  if(total !== subtotal) {
+    discountStatus = true
+  }
+  discount = (total - subtotal).toFixed(2);
   tax_percent = tax_percent || 0;
 
   lines.data.forEach(line => {
@@ -143,7 +147,7 @@ html.no-js
                     | #{subtotal}
                     if !currency_position_before
                       | #{currency_symbol}
-                if (discount !== 0)
+                if (discountStatus)
                   .row.item-vat
                     .small-6.columns.text-right.item-text #{label_discount}
                     .small-6.columns.text-right.item-text 
