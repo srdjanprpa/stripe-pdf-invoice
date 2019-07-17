@@ -4,12 +4,6 @@
 
   total = (total/100).toFixed(2);
   subtotal = (subtotal/100).toFixed(2);
-  discountStatus = false
-  totalDiscount
-  if(discount) {
-    totalDiscount = discount.coupon ? (discount.coupon.amount_off/100).toFixed(2);
-    discountStatus = true;
-  }
   tax_percent = tax_percent || 0;
 
   lines.data.forEach(line => {
@@ -152,11 +146,14 @@ html.no-js
                   .row.item-vat
                     .small-6.columns.text-right.item-text #{label_discount}
                     .small-6.columns.text-right.item-text 
-                      if currency_position_before
-                        | #{currency_symbol}
-                      | #{totalDiscount}
-                      if !currency_position_before
-                        | #{currency_symbol}
+                      if discountAmountOff
+                        if currency_position_before
+                          | #{currency_symbol}
+                        | #{discountAmountOff}
+                        if !currency_position_before
+                          | #{currency_symbol}
+                      if discountPercentOff
+                        | #{discountPercentOff} #{label_percent}
                 if (client_company_country !== 'CA')
                   .row.item-vat
                     .small-6.columns.text-right.item-text #{label_vat}
